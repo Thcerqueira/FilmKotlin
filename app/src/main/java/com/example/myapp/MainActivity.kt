@@ -9,10 +9,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -26,6 +28,7 @@ import kotlinx.serialization.Serializable
 
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -40,6 +43,25 @@ class MainActivity : ComponentActivity() {
                     val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
 
                     Scaffold(
+                        topBar = {
+                            if (currentDestination?.hasRoute<ProfilScreen>() != true) {
+                                TopAppBar(
+                                    title = { Text("MyApp") },
+                                    actions = {
+                                        IconButton(onClick = {
+                                        }) {
+                                            Icon(
+                                                imageVector = Icons.Filled.Search,
+                                                contentDescription = "Search"
+                                            )
+                                        }
+                                    },
+                                    colors = TopAppBarDefaults.topAppBarColors(
+                                        containerColor = Color.White
+                                    )
+                                )
+                            }
+                        },
                         bottomBar = {
                             if(currentDestination?.hasRoute<ProfilScreen>() != true){
                                 NavigationBar {
@@ -53,6 +75,7 @@ class MainActivity : ComponentActivity() {
                             }
 
                         }
+
                     ) { innerPadding ->
                         NavHost(
                             navController = navController,
