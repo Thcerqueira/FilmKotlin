@@ -1,5 +1,6 @@
 package com.example.myapp
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -7,8 +8,10 @@ import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-class MainViewModel: ViewModel() {
-    val movies = MutableStateFlow<List<Movie>>(listOf())
+class MainViewModel : ViewModel() {
+    val movies = MutableStateFlow<List<Movie>>(emptyList())
+    val series = MutableStateFlow<List<Serie>>(emptyList())
+    val acteurs = MutableStateFlow<List<Acteur>>(emptyList())
 
     val apikey = "cb36a049f2b010ae388fdedc34bd25eb"
 
@@ -18,15 +21,64 @@ class MainViewModel: ViewModel() {
         .build()
         .create(TmdbAPI::class.java)
 
-    fun searchMovies(motcle: String) {
+    fun searchMovies(motCle: String) {
         viewModelScope.launch {
-            movies.value = service.getFilmsParMotCle(apikey, motcle).results
+            try {
+                movies.value = service.getFilmsParMotCle(apikey, motCle).results
+            } catch (e: Exception) {
+                println("Erreur lors de la recherche de films : ${e.message}")
+            }
+        }
+    }
+
+    fun searchSeries(motCle: String) {
+        viewModelScope.launch {
+            try {
+                series.value = service.getSeriesParMotCle(apikey, motCle).results
+            } catch (e: Exception) {
+                println("Erreur lors de la recherche de series : ${e.message}")
+            }
         }
     }
 
     fun weekMovies() {
         viewModelScope.launch {
-            movies.value = service.getFilmsSemaine(apikey).results
+            try {
+                movies.value = service.getFilmsSemaine(apikey).results
+            } catch (e: Exception) {
+                println("Erreur lors de la récupération des films de la semaine : ${e.message}")
+            }
         }
     }
+
+    fun weekSeries() {
+        viewModelScope.launch {
+            try {
+                series.value = service.getSeriesSemaine(apikey).results
+            } catch (e: Exception) {
+                println("Erreur lors de la récupération des séries de la semaine : ${e.message}")
+            }
+        }
+    }
+
+    fun popularActors() {
+        viewModelScope.launch {
+            try {
+                acteurs.value = service.getActeursPopulaires(apikey).results
+            } catch (e: Exception) {
+                println("Erreur lors de la récupération des acteurs populaires : ${e.message}")
+            }
+        }
+    }
+
+    fun searchActors(motCle: String) {
+        viewModelScope.launch {
+            try {
+                acteurs.value = service.getActeursParMotCle(apikey, motCle).results
+            } catch (e: Exception) {
+                println("Erreur lors de la recherche des acteurs : ${e.message}")
+            }
+        }
+    }
+
 }

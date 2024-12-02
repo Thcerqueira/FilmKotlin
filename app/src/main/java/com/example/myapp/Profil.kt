@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.window.core.layout.WindowSizeClass
 import androidx.window.core.layout.WindowWidthSizeClass
-import com.example.myapp.FilmScreen
+import com.example.myapp.FilmsScreen
 import com.example.myapp.R
 
 @Composable
@@ -119,7 +119,7 @@ fun Profil(
                             }
                         }
                     }
-                    Button(onClick = { navController.navigate(FilmScreen()) }) {
+                    Button(onClick = { navController.navigate(FilmsScreen()) }) {
                         Text(
                             text = "Démarrer",
                             modifier = modifier
@@ -201,7 +201,7 @@ fun Profil(
                                 modifier = modifier,
                             )
                         }
-                        Button(onClick = { navController.navigate(FilmScreen()) }) { // Navigate to Film on button click
+                        Button(onClick = { navController.navigate(FilmsScreen()) }) {
                             Text(
                                 text = "Démarrer",
                                 modifier = modifier
