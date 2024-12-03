@@ -1,5 +1,9 @@
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -14,7 +18,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.compose.rememberImagePainter
+import com.example.myapp.FilmsScreen
 import com.example.myapp.MainViewModel
+import com.example.myapp.SeriesScreen
 
 @Composable
 fun DetailSerie(modifier: Modifier = Modifier, navController: NavController, serieId: Int) {
@@ -29,12 +35,18 @@ fun DetailSerie(modifier: Modifier = Modifier, navController: NavController, ser
     }
 
     Column(modifier = Modifier.padding(16.dp)) {
-        Text(
-            text = "Détail Série",
-            fontSize = 38.sp,
-            color = Color.Black,
-            modifier = Modifier.padding(end = 8.dp)
-        )
+        Button(
+            onClick = { navController.navigate(SeriesScreen()) },
+            modifier = modifier
+        ) {
+            Row {
+                Icon(
+                    imageVector = Icons.Filled.ArrowBack,
+                    contentDescription = "Retour",
+                    modifier = Modifier.padding(end = 8.dp)
+                )
+            }
+        }
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -53,7 +65,11 @@ fun DetailSerie(modifier: Modifier = Modifier, navController: NavController, ser
         AsyncImage(
             model = imageUrl,
             contentDescription = detailSerie?.name,
-            modifier = Modifier.padding(end=16.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp)
+                .padding(4.dp),
+            contentScale = ContentScale.Crop
         )
         Row(
             modifier = Modifier

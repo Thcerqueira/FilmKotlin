@@ -10,15 +10,11 @@ import DetailActeur
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.MovieCreation
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
@@ -47,8 +43,6 @@ import kotlinx.serialization.Serializable
 @Serializable class SeriesScreen
 
 @Serializable class ActeursScreen
-
-@Serializable class DetailFilm
 
 
 class MainActivity : ComponentActivity() {

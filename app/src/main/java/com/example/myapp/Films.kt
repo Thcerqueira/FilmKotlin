@@ -106,6 +106,15 @@ fun Films(modifier: Modifier = Modifier, navController: NavController, motCle: S
                                 .fillMaxWidth(),
                             textAlign = TextAlign.Center
                         )
+                        Text(
+                            text = movie.release_date ?: "Date inconnue",
+                            fontSize = 16.sp,
+                            color = Color.White,
+                            modifier = Modifier
+                                .padding(top = 8.dp)
+                                .fillMaxWidth(),
+                            textAlign = TextAlign.Center
+                        )
                     }
                 }
             }
