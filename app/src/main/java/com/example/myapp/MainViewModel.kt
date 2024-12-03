@@ -3,6 +3,7 @@ package com.example.myapp
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.squareup.moshi.Moshi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
@@ -15,6 +16,8 @@ class MainViewModel : ViewModel() {
     val detailMovie = MutableStateFlow<DetailMovie?>(null)
     val detailSerie = MutableStateFlow<DetailSerie?>(null)
     val detailActor = MutableStateFlow<DetailActor?>(null)
+
+    val playlists = MutableStateFlow<List<Playlist>>(emptyList())
 
     val apikey = "cb36a049f2b010ae388fdedc34bd25eb"
     val language = "fr"
@@ -115,6 +118,9 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    
+    fun fetchPlaylist(): Playlist {
+        val moshi = Moshi.Builder().build()
+        return moshi.adapter(Playlist::class.java).fromJson(playlistjson)!!
+    }
 
 }

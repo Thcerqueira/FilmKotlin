@@ -35,6 +35,13 @@ import com.example.myapp.MainViewModel
 
 @Composable
 fun Playlists(modifier: Modifier = Modifier, navController: NavController) {
+    val viewModel: MainViewModel = viewModel()
+    val playlistsState = viewModel.playlists.collectAsState()
+    val playlists = playlistsState.value
+
+    LaunchedEffect() {
+        viewModel.fetchPlaylist()
+    }
 
 
     Column(modifier = Modifier.padding(16.dp)) {
