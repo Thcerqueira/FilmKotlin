@@ -4,6 +4,7 @@ import Acteurs
 import Profil
 import Films
 import Series
+import Playlists
 import DetailFilm
 import DetailSerie
 import DetailActeur
@@ -17,6 +18,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.MovieCreation
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.QueueMusic
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Tv
 import androidx.compose.material3.*
@@ -41,6 +43,7 @@ import kotlinx.serialization.Serializable
 @Serializable class ProfilScreen
 @Serializable class FilmsScreen
 @Serializable class SeriesScreen
+@Serializable class PlaylistsScreen
 
 @Serializable class ActeursScreen
 
@@ -183,7 +186,22 @@ class MainActivity : ComponentActivity() {
                                                 selected = currentDestination?.hasRoute<ActeursScreen>() == true,
                                                 onClick = { navController.navigate(ActeursScreen()) },
                                             )
+                                            NavigationBarItem(
+                                                icon = {
+                                                    Icon(
+                                                        imageVector = Icons.Filled.QueueMusic,
+                                                        contentDescription = "Playlist",
+                                                        tint = if (currentDestination?.hasRoute<PlaylistsScreen>() == true) Color.Black else Color.White
+                                                    )
+                                                },
+                                                label = {
+                                                    Text("Playlists", color = Color.White)
+                                                },
+                                                selected = currentDestination?.hasRoute<PlaylistsScreen>() == true,
+                                                onClick = { navController.navigate(PlaylistsScreen()) },
+                                            )
                                         }
+
                                     }
                                 }
                                 else -> {
@@ -203,6 +221,7 @@ class MainActivity : ComponentActivity() {
                             composable<FilmsScreen> { Films(navController = navController, motCle = motCle) }
                             composable<SeriesScreen> { Series(navController = navController, motCle = motCle) }
                             composable<ActeursScreen> { Acteurs(navController = navController, motCle = motCle) }
+                            composable<PlaylistsScreen> { Playlists(navController = navController) }
                             composable("detailFilm/{movieId}") { backStackEntry ->
                                 val movieId = backStackEntry.arguments?.getString("movieId")?.toIntOrNull() ?: 0
                                 DetailFilm(navController = navController, movieId = movieId)

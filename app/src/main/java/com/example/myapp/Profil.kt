@@ -1,4 +1,5 @@
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,6 +24,7 @@ import androidx.navigation.NavController
 import androidx.window.core.layout.WindowSizeClass
 import androidx.window.core.layout.WindowWidthSizeClass
 import com.example.myapp.FilmsScreen
+import com.example.myapp.PlaylistsScreen
 import com.example.myapp.R
 
 @Composable
@@ -119,7 +121,7 @@ fun Profil(
                             }
                         }
                     }
-                    Button(onClick = { navController.navigate(FilmsScreen()) }) {
+                    Button(onClick = { navController.navigate(PlaylistsScreen()) }) {
                         Text(
                             text = "Démarrer",
                             modifier = modifier
@@ -201,7 +203,7 @@ fun Profil(
                                 modifier = modifier,
                             )
                         }
-                        Button(onClick = { navController.navigate(FilmsScreen()) }) {
+                        Button(onClick = { navController.navigate(PlaylistsScreen()) }) {
                             Text(
                                 text = "Démarrer",
                                 modifier = modifier
