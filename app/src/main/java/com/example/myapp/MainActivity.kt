@@ -95,7 +95,7 @@ class MainActivity : ComponentActivity() {
                                                         modifier = Modifier.fillMaxWidth()
                                                     )
                                                 } else {
-                                                    Text("MyApp", color = Color.White)
+                                                    Text("Catalogue", color = Color.White)
                                                 }
                                             },
                                             actions = {
