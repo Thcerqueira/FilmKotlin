@@ -1,3 +1,12 @@
+class Etudiant (val name:String, val promo: String, val matieres: List<String>)
+
+val etudiants = listOf(
+    Etudiant("Paul", "2025", listOf("mobile", "web", "BDD")),
+    Etudiant("Yazid", "2024", listOf("mobile", "Android", "Réseau")),
+    Etudiant("Caroline", "2025", listOf("SE", "Anglais")),
+)
+
+
 open class Piece() {
     open val nom: String = ""
     open val longeur: Double = 0.0
@@ -28,4 +37,5 @@ fun main(){
         println(piece.nom)
         println(piece.surface())
     }
+    etudiants.filter { it.promo == "2024"}.forEach { println(it.name)}
 }
