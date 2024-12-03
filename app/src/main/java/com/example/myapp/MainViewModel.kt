@@ -12,8 +12,12 @@ class MainViewModel : ViewModel() {
     val movies = MutableStateFlow<List<Movie>>(emptyList())
     val series = MutableStateFlow<List<Serie>>(emptyList())
     val acteurs = MutableStateFlow<List<Acteur>>(emptyList())
+    val detailMovie = MutableStateFlow<DetailMovie?>(null)
+    val detailSerie = MutableStateFlow<DetailSerie?>(null)
+    val detailActor = MutableStateFlow<DetailActor?>(null)
 
     val apikey = "cb36a049f2b010ae388fdedc34bd25eb"
+    val language = "fr"
 
     val service = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/3/")
@@ -37,6 +41,36 @@ class MainViewModel : ViewModel() {
                 series.value = service.getSeriesParMotCle(apikey, motCle).results
             } catch (e: Exception) {
                 println("Erreur lors de la recherche de series : ${e.message}")
+            }
+        }
+    }
+
+    fun movieDetail(movieId: Int) {
+        viewModelScope.launch {
+            try {
+                detailMovie.value = service.getFilmDetail(movieId, apikey, language)
+            } catch (e: Exception) {
+                println("Erreur lors de la récupération des détails : ${e.message}")
+            }
+        }
+    }
+
+    fun serieDetail(serieId: Int) {
+        viewModelScope.launch {
+            try {
+                detailSerie.value = service.getSerieDetail(serieId, apikey, language)
+            } catch (e: Exception) {
+                println("Erreur lors de la récupération des détails : ${e.message}")
+            }
+        }
+    }
+
+    fun actorDetail(actorId: Int) {
+        viewModelScope.launch {
+            try {
+                detailActor.value = service.getActorDetail(actorId, apikey, language)
+            } catch (e: Exception) {
+                println("Erreur lors de la récupération des détails : ${e.message}")
             }
         }
     }

@@ -2,6 +2,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -23,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import coil.compose.rememberImagePainter
 import com.example.myapp.MainViewModel
 
@@ -76,15 +78,16 @@ fun Acteurs(modifier: Modifier = Modifier, navController: NavController, motCle:
                             .clip(RoundedCornerShape(12.dp))
                             .border(BorderStroke(1.dp, Color.Gray))
                             .background(Color(0xFF2B59C3))
-                            .padding(8.dp),
+                            .padding(8.dp)
+                            .clickable {
+                                navController.navigate("detailActeur/${acteur.id}")
+                            },
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Image(
-                            painter = rememberImagePainter(
-                                data = acteur.profile_path?.let { "https://image.tmdb.org/t/p/w500$it" }
-                                    ?: ""
-                            ),
-                            contentDescription = "Affiche de la série ${acteur.name ?: "Inconnue"}",
+                        val imageUrl = "https://image.tmdb.org/t/p/w500" + acteur.profile_path
+                        AsyncImage(
+                            model = imageUrl,
+                            contentDescription = acteur.name,
                             modifier = Modifier
                                 .width(140.dp)
                                 .height(160.dp)

@@ -1,6 +1,7 @@
 package com.example.myapp
 
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface TmdbAPI {
@@ -36,5 +37,28 @@ interface TmdbAPI {
         @Query("api_key") apikey: String,
         @Query("query") motCle: String
     ): TmdbResult<Acteur>
+
+    @GET("movie/{movieId}")
+    suspend fun getFilmDetail(
+        @Path("movieId") movieId: Int,
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String
+    ): DetailMovie
+
+    @GET("tv/{serieId}")
+    suspend fun getSerieDetail(
+        @Path("serieId") serieId: Int,
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String
+    ): DetailSerie
+
+    @GET("person/{actorId}")
+    suspend fun getActorDetail(
+        @Path("actorId") serieId: Int,
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String
+    ): DetailActor
+
+
 
 }

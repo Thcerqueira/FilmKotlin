@@ -4,6 +4,9 @@ import Acteurs
 import Profil
 import Films
 import Series
+import DetailFilm
+import DetailSerie
+import DetailActeur
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -44,6 +47,8 @@ import kotlinx.serialization.Serializable
 @Serializable class SeriesScreen
 
 @Serializable class ActeursScreen
+
+@Serializable class DetailFilm
 
 
 class MainActivity : ComponentActivity() {
@@ -204,6 +209,18 @@ class MainActivity : ComponentActivity() {
                             composable<FilmsScreen> { Films(navController = navController, motCle = motCle) }
                             composable<SeriesScreen> { Series(navController = navController, motCle = motCle) }
                             composable<ActeursScreen> { Acteurs(navController = navController, motCle = motCle) }
+                            composable("detailFilm/{movieId}") { backStackEntry ->
+                                val movieId = backStackEntry.arguments?.getString("movieId")?.toIntOrNull() ?: 0
+                                DetailFilm(navController = navController, movieId = movieId)
+                            }
+                            composable("detailSerie/{serieId}") { backStackEntry ->
+                                val serieId = backStackEntry.arguments?.getString("serieId")?.toIntOrNull() ?: 0
+                                DetailSerie(navController = navController, serieId = serieId)
+                            }
+                            composable("detailActeur/{actorId}") { backStackEntry ->
+                                val actorId = backStackEntry.arguments?.getString("actorId")?.toIntOrNull() ?: 0
+                                DetailActeur(navController = navController, actorId = actorId)
+                            }
                         }
                     }
                 }
